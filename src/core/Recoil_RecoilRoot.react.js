@@ -235,6 +235,16 @@ function endBatch(storeRef) {
   }
 }
 
+/** Returns a function that forces accumulated recoil state updates to be applied to `currentTree`.
+ *  Enables future `useRecoilCallback` calls (those which will be called before the next render)
+ *  to read the updates introduced by recoilCallback calls called since the recent render. */
+ function useRecoilFlushBatchedUpdates() {
+  const storeRef = useStoreRef();
+  return useCallback(() => {
+    endBatch(storeRef);
+  }, [storeRef]);
+}
+
 /*
  * The purpose of the Batcher is to observe when React batches end so that
  * Recoil state changes can be batched. Whenever Recoil state changes, we call
@@ -529,6 +539,7 @@ function RecoilRoot(props: Props): React.Node {
 module.exports = {
   useStoreRef,
   useRecoilMutableSource,
+  useRecoilFlushBatchedUpdates,
   RecoilRoot,
   notifyComponents_FOR_TESTING: notifyComponents,
   sendEndOfBatchNotifications_FOR_TESTING: sendEndOfBatchNotifications,

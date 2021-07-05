@@ -44,7 +44,7 @@ export type {
 
 const {batchUpdates, setBatcher} = require('./core/Recoil_Batching');
 const {DefaultValue} = require('./core/Recoil_Node');
-const {RecoilRoot} = require('./core/Recoil_RecoilRoot.react');
+const {RecoilRoot, useRecoilFlushBatchedUpdates} = require('./core/Recoil_RecoilRoot.react');
 const {isRecoilValue} = require('./core/Recoil_RecoilValue');
 const {retentionZone} = require('./core/Recoil_RetentionZone');
 const {freshSnapshot} = require('./core/Recoil_Snapshot');
@@ -116,6 +116,7 @@ module.exports = {
   // Hooks for complex operations with RecoilValues
   useRecoilCallback,
   useRecoilTransaction_UNSTABLE: useRecoilTransaction,
+  useRecoilFlushBatchedUpdates,
 
   // Hooks for Snapshots
   useGotoRecoilSnapshot,

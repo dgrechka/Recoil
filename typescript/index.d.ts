@@ -24,6 +24,11 @@ export type RecoilRootProps = {
 
 export const RecoilRoot: React.FC<RecoilRootProps>;
 
+/** Returns a function that forces accumulated recoil state updates to be applied to `currentTree`.
+ *  Enables future `useRecoilCallback` calls (those which will be called before the next render)
+ *  to read the updates introduced by recoilCallback calls called since the recent render. */
+export function useRecoilFlushBatchedUpdates(): () => () => void;
+
 // Snapshot.d.ts
 declare const SnapshotID_OPAQUE: unique symbol;
 export interface SnapshotID {
